@@ -16,26 +16,21 @@ fn handle_commands() {
 
     if arguments[0] == "new-key"{
 
-
         let key:Key = Key{components:generate_key(arguments[1].parse::<u32>().unwrap())};
-        println!("{}", key.format_key());
+        println!(";;\t{}", key.format_key());
 
         struct Key{
             components:Vec<u32>
         }
-        
+
         impl Key{
             fn format_key(&self) -> String {
         
                 let mut string_base:String = String::from("");
                 let mut aux;
         
-                enum Last{
-                    SingleDigit,
-                    MultipleDigit
-                }
+                enum Last{SingleDigit,  MultipleDigit}
                 let mut last_number = Last::MultipleDigit;
-        
         
                 for i in &self.components{
                     if i < &10{
@@ -54,7 +49,6 @@ fn handle_commands() {
                 }else{
                     return string_base
                 }
-                
             }
         }
 
@@ -66,12 +60,31 @@ fn handle_commands() {
 
 
     }else if arguments[0] == "code"{
-        println!("code");
+
+        let mut words:Vec<String> = Vec::new();
+        let mut key:String = String::from("");
+        let mut received_words:bool = false;
+        for i in arguments{
+            if i != "-k" && !received_words{
+                words.push(i);
+            }else if i == "-k"{
+                received_words = true;
+            }else{
+                key = String::from(&i);
+            }
+        }words.remove(0);
+
+        println!("dev - {{seed: {:?}}}", words);
+        println!("dev - {{key: {}}}", key);
+
+
+
+
+
     }else if arguments[0] == "decode"{
         println!("decode");
     }
 
-    println!("\nARGUMENTS::: {:?}", arguments);
 }
 
 
