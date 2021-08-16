@@ -1,4 +1,13 @@
+
+<img src="https://doc.rust-lang.org/book/img/ferris/not_desired_behavior.svg" width="300" align="right">
+
 # incomprehensible paper
+
+
+
+## ⚠️ This code is under construction, so it still doesn't produce the desired behavior.
+
+
 
 Você pode salvar as sementes de sua carteira ou qualquer senha de maneira segura em um papel  caso não queira armazená-las na internet ou em seus dispositivos.
 
