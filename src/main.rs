@@ -77,10 +77,7 @@ fn generate_key(qnt:u32) -> Vec<u32> {
 
 
 
-// struct Data{
-//     seed:Vec<Sring>,
-//     key:Option<String>
-// }
+
 
 
 
@@ -104,24 +101,43 @@ fn handle_commands() {
     }else if arguments[0] == "code"{
 
 
+        struct Data{
+            seed:Vec<String>,
+            key:Option<String>
+        }
+
+        fn receive_data(arguments:Vec<String>) -> Data {
+
+            let mut words:Vec<String> = Vec::new();
+            let mut key:String = String::from("");
+            let mut received_words:bool = false; // receive true if all words has been passed to words:<Vec>
+            let mut is_there_key:bool = false;
+            let data:Data;
+
+            for i in arguments{
+                if i != "-k" && !received_words{
+                    words.push(i);
+                }else if i == "-k"{
+                    received_words = true;
+                    is_there_key = true;
+                }else{
+                    key = String::from(&i);
+                }
+            }words.remove(0);
+
+            data = Data{
+                seed:words,
+                key:Some(key)
+            };
+            data
+        }
+
         
-
-        let mut words:Vec<String> = Vec::new();
-        let mut key:String = String::from("");
-        let mut received_words:bool = false; // receive true if all words have been passed to words:<Vec>
-
-        for i in arguments{
-            if i != "-k" && !received_words{
-                words.push(i);
-            }else if i == "-k"{
-                received_words = true;
-            }else{
-                key = String::from(&i);
-            }
-        }words.remove(0);
-
-        println!("dev - {{seed: {:?}}}", words);
-        println!("dev - {{key: {:?}}}", key);
+        let i = receive_data(arguments);
+        
+        
+        println!("dev - {{seed: {:?}}}", i.seed);
+        println!("dev - {{key: {:?}}}", i.key);
 
 
 
