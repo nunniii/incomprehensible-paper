@@ -1,4 +1,7 @@
 
+[![Build Status](https://app.travis-ci.com/mateusnssn/incomprehensible-paper.svg?branch=main)](https://app.travis-ci.com/mateusnssn/incomprehensible-paper)
+[![License](https://img.shields.io/github/license/mateusnssn/incomprehensible-paper)](./LICENSE)
+
 <img src="https://doc.rust-lang.org/book/img/ferris/not_desired_behavior.svg" width="300" align="right">
 
 # incomprehensible paper
