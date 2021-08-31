@@ -74,13 +74,12 @@ impl Key{
     }
 }
 
-
-
-
 struct Data{
     seed:Vec<String>,
-    key:String
+    key:Vec<u32>
 }
+
+
 
 fn receive_data(arguments:Vec<String>) -> Data {
 
@@ -100,10 +99,9 @@ fn receive_data(arguments:Vec<String>) -> Data {
 
     Data{
         seed:words,
-        key:key
+        key:key_reader(key)
     }
 }
-
 
 
 fn key_reader(key:String) -> Vec<u32> {
@@ -138,13 +136,7 @@ fn key_reader(key:String) -> Vec<u32> {
     let mut arr_u32 = Vec::new();
     for i in arr{
         arr_u32.push(i.parse::<u32>().unwrap());
-    }
-
-    println!("{:?}", arr_u32);
-
-    arr_u32
-
-
+    }arr_u32
 }
 
 // fn code(seed:Vec<String>) -> ? {}
@@ -165,10 +157,7 @@ fn handle_commands() {
     if arguments[0] == "new-key"{
 
         let key:Key = Key{components:generate_key(arguments[1].parse::<u32>().unwrap())};
-
         println!(";;\t{}", key.format_key());
-
-        key_reader(key.format_key());
 
 
 
@@ -176,7 +165,6 @@ fn handle_commands() {
 
 
         let data = receive_data(arguments);
-        
         
         println!("dev - {{seed: {:?}}}", data.seed);
         println!("dev - {{key: {:?}}}", data.key);
@@ -186,9 +174,16 @@ fn handle_commands() {
 
 
     }else if arguments[0] == "decode"{
-        println!("decode");
-    }
 
+        let data = receive_data(arguments);
+
+        println!("dev - {{seed: {:?}}}", data.seed);
+        println!("dev - {{key: {:?}}}", data.key);
+
+        panic!("Quebra tudo");
+
+
+    }
 }
 
 
