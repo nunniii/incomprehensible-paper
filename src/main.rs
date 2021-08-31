@@ -87,7 +87,6 @@ fn receive_data(arguments:Vec<String>) -> Data {
     let mut words:Vec<String> = Vec::new();
     let mut key:String = String::from("");
     let mut received_words:bool = false; // receive true if all words has been passed to words:<Vec>
-    let data:Data;
 
     for i in arguments{
         if i != "-k" && !received_words{
@@ -99,16 +98,15 @@ fn receive_data(arguments:Vec<String>) -> Data {
         }
     }words.remove(0);
 
-    data = Data{
+    Data{
         seed:words,
         key:key
-    };
-    data
+    }
 }
 
 
 
-fn key_reader(key:String) {
+fn key_reader(key:String) -> Vec<u32> {
 
     let mut aux:String = String::new();
     let mut arr:Vec<String> = Vec::new();
@@ -137,9 +135,14 @@ fn key_reader(key:String) {
         arr.push(String::from(&aux));
     }
 
-    println!("{:?}", arr);
+    let mut arr_u32 = Vec::new();
+    for i in arr{
+        arr_u32.push(i.parse::<u32>().unwrap());
+    }
 
-  
+    println!("{:?}", arr_u32);
+
+    arr_u32
 
 
 }
