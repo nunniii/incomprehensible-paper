@@ -6,6 +6,15 @@ fn range(qnt:u32) -> u32 {
     rand::thread_rng().gen_range(std::ops::Range{start: 0, end: qnt})
 }
 
+fn numbers(len:u32) -> Vec<u32> {
+    let mut arr:Vec<u32> = Vec::new();
+    for i in (std::ops::Range{start: 0, end: len}){
+        arr.push(i);
+    }arr
+}
+
+
+
 fn generate_key(qnt:u32) -> Vec<u32> {
     let mut key_vec:Vec<u32> = Vec::new();
     let mut n_for_comparation;
@@ -139,9 +148,29 @@ fn key_reader(key:String) -> Vec<u32> {
     }arr_u32
 }
 
-// fn code(seed:Vec<String>) -> ? {}
+fn code(mut data:Data) {
 
-// fn decode(seed:Vec<String>, key:Vec<u32>) -> seed:Vec<String> {}
+    let key_size:u32 = data.seed.len() as u32;
+
+
+    if data.key.is_empty() {
+        data.key = generate_key(key_size);
+    }
+    
+    let numbers:Vec<u32> = numbers(key_size);
+    println!("{:?}", numbers);
+
+
+
+    println!("dev - {{seed: {:?}}}", data.seed);
+    println!("dev - {{key: {:?}}}", data.key);
+
+    println!("{}", data.key.len());
+
+}
+
+
+// fn decode(data:Data) {}
 
 
 
@@ -165,10 +194,11 @@ fn handle_commands() {
 
 
         let data = receive_data(arguments);
+        code(data);
         
-        println!("dev - {{seed: {:?}}}", data.seed);
-        println!("dev - {{key: {:?}}}", data.key);
         
+        
+
 
 
 
@@ -176,11 +206,10 @@ fn handle_commands() {
     }else if arguments[0] == "decode"{
 
         let data = receive_data(arguments);
+        // decode(data);
 
         println!("dev - {{seed: {:?}}}", data.seed);
         println!("dev - {{key: {:?}}}", data.key);
-
-        panic!("Quebra tudo");
 
 
     }
