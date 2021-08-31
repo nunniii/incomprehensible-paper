@@ -87,7 +87,6 @@ fn receive_data(arguments:Vec<String>) -> Data {
     let mut words:Vec<String> = Vec::new();
     let mut key:String = String::from("");
     let mut received_words:bool = false; // receive true if all words has been passed to words:<Vec>
-    let mut is_there_key:bool = false;
     let data:Data;
 
     for i in arguments{
@@ -95,7 +94,6 @@ fn receive_data(arguments:Vec<String>) -> Data {
             words.push(i);
         }else if i == "-k"{
             received_words = true;
-            is_there_key = true;
         }else{
             key = String::from(&i);
         }
@@ -110,7 +108,41 @@ fn receive_data(arguments:Vec<String>) -> Data {
 
 
 
-// fn key_reader() {}
+fn key_reader(key:String) {
+
+    let mut aux:String = String::new();
+    let mut arr:Vec<String> = Vec::new();
+    enum Last{SingleDigit,  MultipleDigit}
+    let mut last_number:Last = Last::SingleDigit;
+
+
+    for i in key.chars(){
+        if i == '.' {
+            last_number = Last::SingleDigit;
+            if aux != "" {
+                arr.push(String::from(&aux));
+            }aux = String::new();
+        }else if i == '-' {
+            last_number = Last::MultipleDigit;
+            if aux != "" {
+                arr.push(String::from(&aux));
+            }aux = String::new();
+        }else{
+            match last_number{
+                Last::SingleDigit => arr.push(String::from(i)),
+                Last::MultipleDigit => aux.push(i)
+            }
+        }
+    }if aux != "" {        
+        arr.push(String::from(&aux));
+    }
+
+    println!("{:?}", arr);
+
+  
+
+
+}
 
 // fn code(seed:Vec<String>) -> ? {}
 
@@ -133,7 +165,7 @@ fn handle_commands() {
 
         println!(";;\t{}", key.format_key());
 
-
+        key_reader(key.format_key());
 
 
 
